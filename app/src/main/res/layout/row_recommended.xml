@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recommendationRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgRl"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/forrecommendation" />
+        <TextView
+            android:id="@+id/txtRl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Lamborghini  Urus"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf ="@+id/imgRl"/>
+
+            <TextView
+                android:id="@+id/txtRl2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="$50k-100k"
+                android:layout_below="@id/txtRl1"
+                android:layout_toRightOf ="@+id/imgRl"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

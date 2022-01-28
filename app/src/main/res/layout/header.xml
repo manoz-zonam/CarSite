@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:background="#1185D5"
+    android:gravity="bottom|center"
+    android:padding="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/carlogo"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/headerlogo" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home"
+            android:fontFamily="sans-serif"/>
+
+        <item
+            android:id="@+id/new_cars"
+            android:icon="@drawable/car"
+            android:title="New Cars" >
+            <menu>
+                <item android:id="@+id/search_car"
+                    android:title="Search New Cars"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/latest_car"
+                    android:title="Latest Cars"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/upcoming_cars"
+                    android:title="Upcoming Cars"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/electric_cars"
+                    android:title="Electric Cars"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/popular_cars"
+                    android:title="Popular Cars"
+                    android:fontFamily="sans-serif"/>
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/old_cars"
+            android:icon="@drawable/used_car"
+            android:title="Used Cars"
+            android:fontFamily="sans-serif">
+            <menu>
+                <item android:id="@+id/used_car"
+                    android:title="Used Cars"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/used_cars_valuation"
+                    android:title="Used Car Evaluation"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/used_car_delears"
+                    android:title="Used Car Dealears"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/my_listings"
+                    android:title="My Listings"
+                    android:fontFamily="sans-serif"/>
+            </menu>
+
+        </item>
+
+        <item
+            android:id="@+id/sell_Car"
+            android:icon="@drawable/sell"
+            android:title="Sell Car"
+            android:fontFamily="sans-serif"/>
+
+        <item
+            android:id="@+id/news"
+            android:icon="@drawable/preview"
+            android:title="News and Review"
+            android:fontFamily="sans-serif">
+            <menu>
+                <item android:id="@+id/auto_news"
+                    android:title="Auto News"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/user_reviews"
+                    android:title="Users Review"
+                    android:fontFamily="sans-serif"/>
+                <item android:id="@+id/write_review"
+                    android:title="Write a Review"
+                    android:fontFamily="sans-serif"/>
+            </menu>
+        </item>
+
+    </group>
+
+    <item android:title="Explore More"
+        android:fontFamily="sans-serif">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/dealer_solutions"
+                    android:title="Dealers Solution"
+                    android:fontFamily="sans-serif"/>
+
+                <item
+                    android:id="@+id/car_loan"
+                    android:title="Car Loan"
+                    android:fontFamily="sans-serif"/>
+
+                <item
+                    android:id="@+id/emi"
+                    android:title="EMI Calculator"
+                    android:fontFamily="sans-serif"/>
+
+                <item
+                    android:id="@+id/car_insurance"
+                    android:title="Car Insurance"
+                    android:fontFamily="sans-serif"/>
+
+                <item
+                    android:id="@+id/about"
+                    android:title="About Us"
+                    android:fontFamily="sans-serif"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Communicate"
+        android:fontFamily="sans-serif">
+
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/share"
+                    android:title="Share"
+                    android:fontFamily="sans-serif"/>
+
+                <item
+                    android:id="@+id/nav_rate"
+                    android:icon="@drawable/rate"
+                    android:title="Rate Us"
+                    android:fontFamily="sans-serif"/>
+            </group>
+        </menu>
+    </item>
+
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="Settings"
+        android:fontFamily="sans-serif"/>
+    </group>
+</menu>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:fontFamily="@font/aldrich"
+        android:icon="@drawable/home"
+        android:checked="true"
+        />
+
+    <item
+        android:id="@+id/new_cars"
+        android:title="New"
+        android:fontFamily="@font/aldrich"
+        android:icon="@drawable/car"
+        android:checked="true"
+        />
+    <item
+        android:id="@+id/used_car"
+        android:title="Used"
+        android:fontFamily="@font/aldrich"
+        android:icon="@drawable/used_car"
+        android:checked="false"
+        />
+    <item
+        android:id="@+id/news"
+        android:title="News"
+        android:fontFamily="@font/aldrich"
+        android:icon="@drawable/preview"
+        android:checked="false"/>
+
+    <item
+        android:id="@+id/more"
+        android:title="More"
+        android:fontFamily="@font/aldrich"
+        android:icon="@drawable/more"
+        android:checked="false"
+        />
+
+</menu>
