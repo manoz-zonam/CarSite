@@ -1,35 +1,59 @@
 package com.utech.carsite.fragments;
 
-import android.app.LauncherActivity;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.ahmadhamwi.tabsync.TabbedListMediator;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.gson.JsonElement;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-import com.utech.carsite.MainActivity;
-import com.utech.carsite.NewCars;
-import com.utech.carsite.NewsReview;
+import com.utech.carsite.API.ApiHelper;
+import com.utech.carsite.API.ApiService;
 import com.utech.carsite.R;
-import com.utech.carsite.SellCar;
-import com.utech.carsite.UsedCars;
+import com.utech.carsite.adapters.BudgetAdapter;
 import com.utech.carsite.adapters.SliderAdapter;
+import com.utech.carsite.model.AllCarsModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomePage extends Fragment {
+    ArrayList<Integer> itemCount;
+    Call<JsonElement> call;
+    ArrayList<AllCarsModel> allCarsModel;
+    String id, min_val, max_val;
+    BudgetAdapter budgetAdapter;
+
+
+
+    @BindView(R.id.search_car)
+    SearchView search_car;
 
     @BindView(R.id.imageSlider)
     SliderView imageSlider;
@@ -58,36 +82,19 @@ public class HomePage extends Fragment {
     @BindView(R.id.secondary_grid)
     GridLayout secondary_grid;
 
-    @BindView(R.id.Button1)
-    MaterialButton Button1;
+    @BindView(R.id.tab_PopularPrice)
+    TabLayout tab_PopularPrice;
 
-    @BindView(R.id.Button2)
-    MaterialButton Button2;
+    @BindView(R.id.viewPagerBudget)
+    ViewPager viewPagerBudget;
 
-    @BindView(R.id.Button3)
-    MaterialButton Button3;
-
-    @BindView(R.id.Button4)
-    MaterialButton Button4;
-
-    @BindView(R.id.Button5)
-    MaterialButton Button5;
-
-    @BindView(R.id.Button6)
-    MaterialButton Button6;
-
-    @BindView(R.id.Button7)
-    MaterialButton Button7;
+    @BindView(R.id.popularBudgetRV)
+    RecyclerView popularBudgetRV;
 
     @BindView(R.id.grid)
     RelativeLayout grid;
 
-
-    @BindView(R.id.under5lakhFl)
-    RelativeLayout under5lakhFl;
-
-    @BindView(R.id.under10lakhFl)
-    RelativeLayout under10lakhFl;
+//
 
     int[] images = {R.drawable.car1,
             R.drawable.car2,
@@ -97,6 +104,9 @@ public class HomePage extends Fragment {
     public HomePage() {
         // Required empty public constructor
     }
+
+    PagerAdapter pagerAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,14 +121,74 @@ public class HomePage extends Fragment {
         imageSlider.startAutoCycle();
 
 
-        return rootView ;
+        //pagerAdapter = new PagerAdapter(getFragmentManager());
+        //viewPagerBudget.setAdapter(pagerAdapter);
+        //tab_PopularPrice.setupWithViewPager(viewPagerBudget);
 
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),1);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        popularBudgetRV.setLayoutManager(linearLayoutManager);
+
+        getData();
+
+        return rootView ;
+    }
+
+    private void getData() {
+
+        ApiService apiService = (ApiService) ApiHelper.getInstance().getService(ApiService.class);
+        call = apiService.getCarByBudget();
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                JSONObject data = new JSONObject();
+                if(response.isSuccessful()){
+                    String responseValue = response.body().toString();
+                    if(responseValue != null){
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseValue);
+                            String responseCode = jsonObject.getString("success");
+                            if(responseCode.equals("true")){
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                allCarsModel = new ArrayList<>();
+                                itemCount = new ArrayList<>();
+                                for (int i = 0; i < jsonArray.length(); i++){
+                                    JSONObject json = jsonArray.getJSONObject(i);
+                                    id = json.getString("id");
+                                    min_val = json.getString("min_val");
+                                    max_val = json.getString("max_val");
+                                    allCarsModel.add(new AllCarsModel(id, min_val, max_val));
+                                    tab_PopularPrice.addTab(tab_PopularPrice.newTab().setText(min_val + "-" + max_val));
+                                    itemCount.add(i);
+                                }
+                                budgetAdapter = new BudgetAdapter(allCarsModel, getContext());
+                                popularBudgetRV.setAdapter(budgetAdapter);
+                                new TabbedListMediator(popularBudgetRV, tab_PopularPrice,itemCount, true).attach();
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
+            }
+        });
 
     }
 
-
-
-
+//    private fun attach{
+//        TabbedListMediator(
+//                popularBudgetRV,
+//                tab_PopularPrice
+//        ).attach()
+//    }
 
     @OnClick(R.id.expandableButton)
     public void showMore(){
